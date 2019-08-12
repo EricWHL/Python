@@ -1,4 +1,5 @@
 from ExcelModule import ExcelModule
+from container import Group
 
 def excelfunc():
     exl = ExcelModule()
@@ -9,8 +10,11 @@ def excelfunc():
     for item in names:
         print(item)
 
-
+def test():
+    gp = Group()
+    print(gp.append('a'))
+    print('test')
 
 if __name__=="__main__":
     print("main")
-    #excelfunc()
+    test()
