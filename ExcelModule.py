@@ -1,3 +1,4 @@
+import os
 import openpyxl
 
 from openpyxl import load_workbook
@@ -10,14 +11,19 @@ class ExcelModule(object):
         print(self)
 
     def create(self, path):
-        wb = openpyxl.Workbook() 
-        wb.save(path)
+        print(os.path.splitext(os.path.basename(path))[0])
+        if os.path.exists(path):
+            return False
+        else:
+            wb = openpyxl.Workbook()
+            wb.create_sheet(index = 0, title = os.path.splitext(os.path.basename(path))[0])
+            wb.remove_sheet(wb.get_sheet_by_name('Sheet'))
+            wb.save(path)
+            return True
 
     def get_sheet_names(self, path):
-        name = []
         wb = load_workbook(path)
-        name = wb.sheetnames
-        return name
+        return wb.sheetnames
     
     def add_sheet_front(self, path, sheetname):
         print('add sheet front')
