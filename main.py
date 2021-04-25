@@ -1,17 +1,22 @@
+# coding=gbk
 from ExcelModule import ExcelModule
 from container import Group
 
 def excelfunc():
     exl = ExcelModule()
     print('excelfunc')
-    if exl.create('text.xlsx'):
+    if exl.create('total.xlsx'):
         print('create file success!')
     else:
         print('create file error!')
     names = []
-    names = exl.get_sheet_names('text.xlsx')
+    names = exl.get_sheet_names('total.xlsx')
     for item in names:
         print(item)
+
+    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_ADAS_V1.0.xlsx','total.xlsx','统计','ADAS_统计')
+    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_BASIC_V1.0.xlsx','total.xlsx','统计','BASIC_统计')
+    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_TT Priority_V1.0.xlsx','total.xlsx','统计','TT Prority_统计')
 
 def test():
     gp = Group()

@@ -30,6 +30,30 @@ class ExcelModule(object):
 
     def add_sheet_end(self, path, sheetname):
         print('add sheet end!')
+
+    def copy_sheet(self, srcfile, tagfile ,copysheet ,sheetname):
+        print('copy ',srcfile,'sheet',copysheet,'to ',tagfile)
+
+        wb = load_workbook(srcfile,data_only=True)
+        wb2 = load_workbook(tagfile)
+        
+        ws = wb[copysheet]
+        
+        ws2 = wb2.create_sheet(index = len(wb2.sheetnames), title = sheetname)
+ 
+        #两个for循环遍历整个excel的单元格内容
+        print('copying...')
+        for i,row in enumerate(ws.iter_rows()):
+            for j,cell in enumerate(row):
+                ws2.cell(row=i+1, column=j+1, value=cell.value)
+        print('copying end')
+        
+        wb2.save(tagfile)
+        wb.close()
+        wb2.close()
+
+        
+            
 #    def write07Excel(path):
 #       wb = openpyxl.Workbook()
 #       sheet = wb.active
