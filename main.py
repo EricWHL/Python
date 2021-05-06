@@ -1,6 +1,8 @@
 # coding=gbk
 from ExcelModule import ExcelModule
 from container import Group
+from stock.StockMgr import *
+
 
 def excelfunc():
     exl = ExcelModule()
@@ -23,7 +25,15 @@ def test():
     print(gp.append('a'))
     print('test')
 
+def st_test():
+    print('st_test')
+    st = StockMgr()
+    st.test()
+
+
 if __name__=="__main__":
-    print("main")
+    print('main')
+    print(dir())
     #test()
-    excelfunc()
+    st_test()
+    #excelfunc()
