@@ -1,20 +1,10 @@
 import baostock as bs
 import pandas as pd
-from .StockData import *
-from .StockMonitor import *
-from .StockExport import *
 
-class StockMgr(object):
+class StockData(object):
     def __init__(self):
-        print('StockMgr')
-        
-        self.data_ = StockData()
-        self.export_ = StockExport()
-        self.monitor_ = StockMonitor()
+        print('StockData')
 
-    def monitor(self, data):
-        print('========Stock Monitor========')
-        self.monitor_.execute()
         
     def test(self):
         print('stock mgr test')
@@ -27,7 +17,7 @@ class StockMgr(object):
         # 详细指标参数，参见“历史行情指标参数”章节
         rs = bs.query_history_k_data_plus("sz.300073",
                                           "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,pbMRQ,psTTM,pcfNcfTTM,isST",
-                                          start_date='2021-05-06', end_date='2021-05-07', 
+                                          start_date='2021-05-05', end_date='2021-05-06', 
                                           frequency="d", adjustflag="3") #frequency="d"取日k线，adjustflag="3"默认不复权
         print('query_history_k_data_plus respond error_code:'+rs.error_code)
         print('query_history_k_data_plus respond  error_msg:'+rs.error_msg)

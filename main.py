@@ -3,7 +3,6 @@ from ExcelModule import ExcelModule
 from container import Group
 from stock.StockMgr import *
 
-
 def excelfunc():
     exl = ExcelModule()
     print('excelfunc')
@@ -28,7 +27,8 @@ def test():
 def st_test():
     print('st_test')
     st = StockMgr()
-    st.test()
+    #st.test()
+    st.monitor('a')
 
 
 if __name__=="__main__":
