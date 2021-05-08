@@ -31,6 +31,9 @@ class ExcelModule(object):
             return True
 
     def get_sheet_names(self):
+        if True != os.path.exists(self.path):
+            return -1
+
         wb = load_workbook(self.path)
         return wb.sheetnames
     
@@ -40,13 +43,35 @@ class ExcelModule(object):
     def add_sheet_end(self, path, sheetname):
         print('add sheet end!')
 
-    def read_column_data(self):
-        pass
+    def read_column_data(self,sheetname,col):
+        print('sheetname is [',sheetname, '] column is [',col,']')
+        if True != os.path.exists(self.path):
+            return -1
 
+        wb = load_workbook(self.path)
+        ws = wb[sheetname]
+        
+        rows = ws.max_row
+        column_data = []
+        for i in range(1, rows + 1):
+            cell_value = ws.cell(row=i, column=col).value
+            column_data.append(cell_value)
+        return column_data
 
+    def read_row_data(self,sheetname,row):
+        print('sheetname is [',sheetname, '] column is [',col,']')
+        if True != os.path.exists(self.path):
+            return -1
 
-
-
+        wb = load_workbook(self.path)
+        ws = wb[sheetname]
+        
+        columns = ws.max_column
+        row_data = []
+        for i in range(1, columns + 1):
+            cell_value = ws.cell(row=row, column=i).value
+            row_data.append(cell_value)
+        return row_data
         
     def copy_sheet(self, srcfile, tagfile ,copysheet ,sheetname):
         print('copy ',srcfile,'sheet',copysheet,'to ',tagfile)

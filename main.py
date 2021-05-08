@@ -1,4 +1,5 @@
 # coding=gbk
+import os
 from ExcelModule import ExcelModule
 from container import Group
 from stock.StockMgr import *
@@ -35,5 +36,5 @@ if __name__=="__main__":
     print('main')
     print(dir())
     #test()
-    #st_test()
-    excelfunc()
+    st_test()
+    #excelfunc()

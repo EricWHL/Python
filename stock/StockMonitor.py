@@ -3,13 +3,18 @@ import threading
 import time
 from .StockTicket import *
 
+
 class StockMonitor(object):
-    def __init__(self):
+    def __init__(self,codelist):
         print('StockMonitor')
         ts.set_token('2a7e5987596b91c995bfaa15b9b0de0c3947ee7fd76d6dbc06e577d8')
         # 以上方法只需要在第一次或者token失效后调用，完成调取tushare数据凭证的设置，正常情况下不需要重复设置。也可以忽略此步骤，直接用pro_api('your token')完成初始化
         # 初始化pro接口
         self.pro = ts.pro_api()
+        if(len(codelist)>2):
+            codelist.pop(0)
+            self.codes = codelist
+            print(self.codes)
 
     def getrealtimedata(self,ti):
         data = ts.get_realtime_quotes(ti.code)
@@ -21,17 +26,22 @@ class StockMonitor(object):
         ti.discribe='股票编号：{}，股票名称：{}，今日开盘价：{}，当前价格：{}，今日最高价：{}，今日最低价：{}'.format(ti.code,ti.name,ti.open,ti.price,ti.high,ti.low)
         return ti
 
+    def make_monitor_list(self,codes):
+        clist = [];
+        for i in codes:
+            clist.append(StockTicket(str(i),50.69,53.00,'',''))
 
+        return clist
+            
     def run(self):
         while True:
-            ticketList = [
-                StockTicket('300073',50.69,53.00,'','')
-            ];
+            ticketList = self.make_monitor_list(self.codes)
+            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
             for ti in ticketList:
                 data = self.getrealtimedata(ti)
                 print(data.discribe)
-                
-                time.sleep(5)
+               
+            time.sleep(5)
 
     def execute(self):
         t1 = threading.Thread(target=self.run)

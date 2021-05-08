@@ -1,4 +1,4 @@
-__all__ = ['StockMgr','StockData','StockExport','StockMonitor']
+__all__ = ['StockMgr','StockData','StockConfig','StockMonitor','StockExport']
 #from .StockMgr import *
 #from .StockData import *
 #from .StockExport import *

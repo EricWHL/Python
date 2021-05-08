@@ -1,5 +1,6 @@
 from .StockData import *
 from .StockMonitor import *
+from .StockConfig import *
 from .StockExport import *
 
 class StockMgr(object):
@@ -7,8 +8,8 @@ class StockMgr(object):
         print('StockMgr')
         
         self.data_ = StockData('111111111111111')
-        self.export_ = StockExport(resfile)
-        self.monitor_ = StockMonitor()
+        self.config_ = StockConfig(resfile)
+        self.monitor_ = StockMonitor(self.config_.monitor_tickets())
 
     def monitor(self):
         print('========Stock Monitor========')
@@ -17,3 +18,5 @@ class StockMgr(object):
     def test(self):
         print('stock mgr test')
         self.data_.test()
+        self.config_.test()
+        self.monitor()
