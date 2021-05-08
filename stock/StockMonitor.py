@@ -1,20 +1,7 @@
 import tushare as ts
 import threading
 import time
-
-
-class Ticket(object):
-    def __init__(self,code,buy,sale):
-        self.name = ''
-        self.open = ''
-        self.price = ''
-        self.high = ''
-        self.low = ''
-        self.describe=''
-        self.code = code
-        self.buy = buy
-        self.sale = sale
-
+from .StockTicket import *
 
 class StockMonitor(object):
     def __init__(self):
@@ -38,7 +25,7 @@ class StockMonitor(object):
     def run(self):
         while True:
             ticketList = [
-                Ticket('300073',50.69,53.00)
+                StockTicket('300073',50.69,53.00,'','')
             ];
             for ti in ticketList:
                 data = self.getrealtimedata(ti)

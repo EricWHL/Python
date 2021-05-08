@@ -1,35 +1,15 @@
-import baostock as bs
-import pandas as pd
+import tushare as ts
+from .StockTicket import *
 
 class StockData(object):
-    def __init__(self):
-        print('StockData')
-
-        
+    def __init__(self, data):
+        print('StockData:',data)
+        ts.set_token('2a7e5987596b91c995bfaa15b9b0de0c3947ee7fd76d6dbc06e577d8')
+        self.tick_ = StockTicket('300073',0,0,'','')
+        self.proj_ = ts.pro_api()
+                
+    def get_history_k_data(self):
+        pass
+    
     def test(self):
-        print('stock mgr test')
-        #### 登陆系统 ####
-        lg = bs.login()
-        # 显示登陆返回信息
-        print('login respond error_code:'+lg.error_code)
-        print('login respond  error_msg:'+lg.error_msg)
-        #### 获取历史K线数据 ####
-        # 详细指标参数，参见“历史行情指标参数”章节
-        rs = bs.query_history_k_data_plus("sz.300073",
-                                          "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,pbMRQ,psTTM,pcfNcfTTM,isST",
-                                          start_date='2021-05-05', end_date='2021-05-06', 
-                                          frequency="d", adjustflag="3") #frequency="d"取日k线，adjustflag="3"默认不复权
-        print('query_history_k_data_plus respond error_code:'+rs.error_code)
-        print('query_history_k_data_plus respond  error_msg:'+rs.error_msg)
-        #### 打印结果集 ####
-        data_list = []
-        while (rs.error_code == '0') & rs.next():
-            # 获取一条记录，将记录合并在一起
-            data_list.append(rs.get_row_data())
-            result = pd.DataFrame(data_list, columns=rs.fields)
-            #### 结果集输出到csv文件 ####
-            #esult.to_csv("D:/history_k_data.csv", encoding="gbk", index=False)
-            print(result)
-
-        #### 登出系统 ####
-        bs.logout()
+        print('stock data interface test')

@@ -4,20 +4,16 @@ from container import Group
 from stock.StockMgr import *
 
 def excelfunc():
-    exl = ExcelModule()
+    exl = ExcelModule('total.xlsx')
     print('excelfunc')
-    if exl.create('total.xlsx'):
-        print('create file success!')
-    else:
-        print('create file error!')
     names = []
-    names = exl.get_sheet_names('total.xlsx')
+    names = exl.get_sheet_names()
     for item in names:
         print(item)
 
-    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_ADAS_V1.0.xlsx','total.xlsx','统计','ADAS_统计')
-    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_BASIC_V1.0.xlsx','total.xlsx','统计','BASIC_统计')
-    exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_TT Priority_V1.0.xlsx','total.xlsx','统计','TT Prority_统计')
+    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_ADAS_V1.0.xlsx','total.xlsx','统计','ADAS_统计')
+    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_BASIC_V1.0.xlsx','total.xlsx','统计','BASIC_统计')
+    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_TT Priority_V1.0.xlsx','total.xlsx','统计','TT Prority_统计')
 
 def test():
     gp = Group()
@@ -26,14 +22,18 @@ def test():
 
 def st_test():
     print('st_test')
-    st = StockMgr()
-    #st.test()
-    st.monitor('a')
+    if(os.path.exists(os.getcwd() + '\\res\\stock\\stock.xlsx')):
+        st = StockMgr(os.getcwd() + '\\res\\stock\\stock.xlsx')
+    else:
+        st = StockMgr('test')
+        
+    st.test()
+    #st.monitor()
 
 
 if __name__=="__main__":
     print('main')
     print(dir())
     #test()
-    st_test()
-    #excelfunc()
+    #st_test()
+    excelfunc()
