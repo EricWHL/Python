@@ -3,19 +3,28 @@ import os
 from ExcelModule import ExcelModule
 from container import Group
 from stock.StockMgr import *
+from tools.FileSystem import *
+from tools.ConfigAnalyst import *
 
+
+cfg = ConfigAnalyst()
 def excelfunc():
     exl = ExcelModule('total.xlsx')
     print('excelfunc')
+    fs = FileSystem()
+    
     names = []
     names = exl.get_sheet_names()
     for item in names:
         print(item)
-
-    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_ADAS_V1.0.xlsx','total.xlsx','统计','ADAS_统计')
-    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_BASIC_V1.0.xlsx','total.xlsx','统计','BASIC_统计')
-    #exl.copy_sheet('./res/Desay_C100_Cluster_FunctionTest_TT Priority_V1.0.xlsx','total.xlsx','统计','TT Prority_统计')
-
+        
+    #exl.copy_sheet('./res/doc/Desay_C100_Cluster_FunctionTest_ADAS_V1.0.xlsx','total.xlsx','统计','ADAS_统计')
+    #exl.copy_sheet('./res/doc/Desay_C100_Cluster_FunctionTest_BASIC_V1.0.xlsx','total.xlsx','统计','BASIC_统计')
+    #exl.copy_sheet('./res/doc/Desay_C100_Cluster_FunctionTest_TT Priority_V1.0.xlsx','total.xlsx','统计','TT Prority_统计')
+    print(fs.find_file_by_ext('py'))
+    print(fs.find_files_by_path('./res/doc/'))
+    
+    
 def test():
     gp = Group()
     print(gp.append('a'))
@@ -33,8 +42,10 @@ def st_test():
 
 
 if __name__=="__main__":
-    print('main')
-    print(dir())
-    #test()
-    st_test()
-    #excelfunc()
+    if cfg.isDoc():
+        excelfunc()
+    elif cfg.isStock():
+        st_test()
+    else:
+        pass
+    
